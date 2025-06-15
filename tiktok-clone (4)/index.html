@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KITKOT 18 - BEST ADULTS TIKTOK | TIKTOK 18 FOR ADULT ONLY</title>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: black;
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Hide scrollbars */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Custom animations */
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .animate-fade-in {
+            animation: fade-in 0.3s ease-out;
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        /* Main container */
+        .app-container {
+            height: 100vh;
+            background-color: black;
+            color: white;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background-color: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(4px);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+        }
+
+        .logo {
+            color: #ef4444;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-button {
+            background: none;
+            border: none;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .nav-button.inactive {
+            color: #9ca3af;
+        }
+
+        /* Video container */
+        .video-container {
+            height: 100vh;
+            overflow-y: scroll;
+            padding-top: 64px;
+            padding-bottom: 80px;
+            scroll-snap-type: y mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .video-item {
+            position: relative;
+            height: 100vh;
+            scroll-snap-align: start;
+        }
+
+        .video-element {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Ad styles */
+        .ad-container {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ad-fashion { background: linear-gradient(to bottom right, #ec4899, #a855f7); }
+        .ad-tech { background: linear-gradient(to bottom right, #3b82f6, #06b6d4); }
+        .ad-food { background: linear-gradient(to bottom right, #10b981, #059669); }
+        .ad-fitness { background: linear-gradient(to bottom right, #f97316, #ef4444); }
+        .ad-travel { background: linear-gradient(to bottom right, #6366f1, #8b5cf6); }
+
+        .ad-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .ad-content {
+            position: absolute;
+            bottom: 80px;
+            left: 16px;
+            right: 16px;
+        }
+
+        .ad-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .ad-description {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .ad-sponsored {
+            display: inline-block;
+            margin-top: 8px;
+            background-color: white;
+            color: black;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Ad timer */
+        .ad-timer {
+            position: absolute;
+            top: 80px;
+            right: 16px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* Video overlay */
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent, transparent);
+        }
+
+        /* Controls */
+        .play-pause-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .play-pause-button {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            padding: 16px;
+            opacity: 0;
+        }
+
+        .play-pause-button.show {
+            opacity: 1;
+            animation: fade-in 0.3s ease-out;
+        }
+
+        .loading-indicator {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid white;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Mute button */
+        .mute-button {
+            position: absolute;
+            top: 80px;
+            right: 16px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: none;
+            border-radius: 50%;
+            padding: 8px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .mute-button:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Right side actions */
+        .actions-panel {
+            position: absolute;
+            right: 8px;
+            bottom: 128px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            position: relative;
+        }
+
+        .avatar-image {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: 2px solid white;
+            overflow: hidden;
+            background-color: #6b7280;
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .follow-button {
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 32px;
+            height: 32px;
+            background-color: #3b82f6;
+            border-radius: 50%;
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .action-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .action-button:hover {
+            transform: scale(1.1);
+        }
+
+        .action-button.liked {
+            color: #ef4444;
+        }
+
+        .action-button.bookmarked {
+            color: #eab308;
+        }
+
+        .action-count {
+            font-size: 16px;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        /* Bottom content */
+        .bottom-content {
+            position: absolute;
+            bottom: 112px;
+            left: 16px;
+            right: 96px;
+        }
+
+        .username {
+            font-weight: 600;
+            font-size: 20px;
+            margin-bottom: 8px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .caption {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 16px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            line-height: 1.5;
+        }
+
+        /* Bottom navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: black;
+            border-top: 1px solid #374151;
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 8px 0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            text-decoration: none;
+            color: #9ca3af;
+        }
+
+        .nav-item.active {
+            color: white;
+        }
+
+        .nav-item-text {
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .create-button {
+            background-color: white;
+            border-radius: 8px;
+            padding: 8px;
+        }
+
+        .inbox-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background-color: #ef4444;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: white;
+        }
+
+        /* Comments modal */
+        .comments-modal {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 50;
+            display: none;
+            align-items: flex-end;
+        }
+
+        .comments-modal.show {
+            display: flex;
+        }
+
+        .comments-content {
+            background-color: white;
+            border-radius: 24px 24px 0 0;
+            width: 100%;
+            max-height: 70vh;
+            overflow: hidden;
+        }
+
+        .comments-header {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .comments-header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .comments-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: black;
+        }
+
+        .close-button {
+            background: none;
+            border: none;
+            color: black;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .close-button:hover {
+            background-color: #f3f4f6;
+        }
+
+        .comments-list {
+            overflow-y: auto;
+            max-height: 384px;
+            padding: 16px;
+        }
+
+        .comment-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .comment-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #6b7280;
+        }
+
+        .comment-content {
+            flex: 1;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .comment-username {
+            font-weight: 600;
+            font-size: 14px;
+            color: black;
+            text-decoration: none;
+        }
+
+        .comment-username:hover {
+            text-decoration: underline;
+        }
+
+        .comment-time {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .comment-text {
+            font-size: 14px;
+            color: black;
+            margin-bottom: 8px;
+        }
+
+        .comment-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .comment-like-button {
+            display: flex;
+            align-items: center;
+            background: none;
+            border: none;
+            font-size: 12px;
+            color: #6b7280;
+            cursor: pointer;
+        }
+
+        .comment-like-button:hover {
+            color: #ef4444;
+        }
+
+        .comment-like-button.liked {
+            color: #ef4444;
+        }
+
+        .comment-reply-button {
+            background: none;
+            border: none;
+            font-size: 12px;
+            color: #6b7280;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .comment-reply-button:hover {
+            text-decoration: underline;
+        }
+
+        /* Utility classes */
+        .hidden {
+            display: none;
+        }
+
+        .fill-current {
+            fill: currentColor;
+        }
+
+        /* iOS video fix */
+        video {
+            -webkit-playsinline: true;
+            playsinline: true;
+            webkit-playsinline: true;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <a href="https://example.com" class="logo">LIVES</a>
+                <div class="nav-buttons">
+                    <button class="nav-button">Following</button>
+                    <button class="nav-button inactive">For You</button>
+                </div>
+                <i data-lucide="search" style="width: 24px; height: 24px;"></i>
+            </div>
+        </div>
+
+        <!-- Video Container -->
+        <div class="video-container" id="videoContainer">
+            <!-- Videos will be dynamically added here -->
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-content">
+                <a href="https://example.com" class="nav-item active">
+                    <i data-lucide="home" style="width: 24px; height: 24px;"></i>
+                    <span class="nav-item-text">Home</span>
+                </a>
+                <a href="https://example.com" class="nav-item">
+                    <i data-lucide="compass" style="width: 24px; height: 24px;"></i>
+                    <span class="nav-item-text">Discover</span>
+                </a>
+                <a href="https://example.com" class="nav-item">
+                    <div class="create-button">
+                        <i data-lucide="plus" style="width: 24px; height: 24px; color: black;"></i>
+                    </div>
+                </a>
+                <a href="https://example.com" class="nav-item" style="position: relative;">
+                    <i data-lucide="mail" style="width: 24px; height: 24px;"></i>
+                    <span class="nav-item-text">Inbox</span>
+                    <div class="inbox-badge" id="inboxBadge">3</div>
+                </a>
+                <a href="https://example.com" class="nav-item">
+                    <i data-lucide="user" style="width: 24px; height: 24px;"></i>
+                    <span class="nav-item-text">Profile</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Comments Modal -->
+        <div class="comments-modal" id="commentsModal">
+            <div class="comments-content">
+                <div class="comments-header">
+                    <div class="comments-header-content">
+                        <h3 class="comments-title">Comments</h3>
+                        <button class="close-button" onclick="closeComments()">✕</button>
+                    </div>
+                </div>
+                <div class="comments-list" id="commentsList">
+                    <!-- Comments will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let videos = [];
+        let currentVideoIndex = 0;
+        let isPlaying = [];
+        let isMuted = [];
+        let isLoaded = [];
+        let adTimers = {};
+        let inboxCount = 3;
+        let lastScrollTime = Date.now();
+        let isScrolling = false;
+
+        // Generate random comments
+        function generateComments() {
+            const commentTexts = [
+                "This is absolutely amazing! 😍",
+                "Can't stop watching this! 🔥",
+                "You're so talented! ✨",
+                "This made my day! 😊",
+                "Incredible content as always! 👏",
+                "How do you do this?! 🤯",
+                "This is pure art! 🎨",
+                "I'm obsessed with this! 💕",
+                "You never disappoint! 🙌",
+                "This is why I love this app! ❤️",
+                "Teach me your ways! 🙏",
+                "This deserves to go viral! 🚀",
+                "I've watched this 10 times already! 😂",
+                "You're a legend! 👑",
+                "This is perfection! ✨",
+                "I can't even... 😱",
+                "This is everything! 💯",
+                "You're my inspiration! 🌟",
+            ];
+
+            const usernames = [
+                "sarah_jones", "mike_chen", "emma_wilson", "alex_garcia",
+                "jessica_brown", "david_kim", "sophia_martinez", "ryan_taylor",
+                "olivia_anderson", "james_white", "ava_thompson", "noah_davis",
+                "isabella_rodriguez", "lucas_miller", "mia_johnson", "ethan_moore",
+                "charlotte_jackson", "mason_lee"
+            ];
+
+            const numComments = Math.floor(Math.random() * 8) + 8;
+            const comments = [];
+
+            for (let i = 0; i < numComments; i++) {
+                comments.push({
+                    id: `comment-${i}`,
+                    username: usernames[Math.floor(Math.random() * usernames.length)],
+                    text: commentTexts[Math.floor(Math.random() * commentTexts.length)],
+                    likes: Math.floor(Math.random() * 500) + 1,
+                    timeAgo: `${Math.floor(Math.random() * 24) + 1}h`,
+                    isLiked: Math.random() > 0.7
+                });
+            }
+
+            return comments;
+        }
+
+        // Generate video data
+        function generateVideoData(index) {
+            const videoNumber = Math.floor(Math.random() * 80) + 1;
+            const usernames = [
+                "dance_queen", "fitness_guru", "comedy_king", "art_lover",
+                "music_maker", "food_blogger", "travel_bug", "pet_parent",
+                "fashion_icon", "tech_wizard", "nature_lover", "book_worm"
+            ];
+
+            const captions = [
+                "Living my best life! ✨ #blessed #vibes",
+                "Can't believe this happened! 😱 #viral #amazing",
+                "Just another day being awesome 💪 #motivation",
+                "This took me hours to perfect! 🎯 #dedication",
+                "Who else can relate? 😂 #relatable #funny",
+                "Trying something new today! 🌟 #adventure",
+                "This is why I love what I do ❤️ #passion",
+                "Rate this from 1-10! 🔥 #challenge",
+                "Behind the scenes magic ✨ #bts #creative",
+                "Making memories that last forever 📸 #memories"
+            ];
+
+            const username = usernames[Math.floor(Math.random() * usernames.length)];
+
+            return {
+                id: `video-${index}`,
+                type: 'video',
+                videoUrl: `https://best-girls-around.com/video_app/videos/2/${videoNumber}.mp4`,
+                username,
+                caption: captions[Math.floor(Math.random() * captions.length)],
+                likes: Math.floor(Math.random() * 50000) + 1000,
+                comments: generateComments(),
+                isLiked: false,
+                isBookmarked: false
+            };
+        }
+
+        // Generate ad data
+        function generateAdData(index) {
+            const adTypes = [
+                {
+                    title: "Summer Collection",
+                    description: "Get 30% off on our new summer collection!",
+                    link: "https://example.com/fashion",
+                    bgClass: "ad-fashion"
+                },
+                {
+                    title: "New Smartphone",
+                    description: "The latest smartphone with amazing features!",
+                    link: "https://example.com/tech",
+                    bgClass: "ad-tech"
+                },
+                {
+                    title: "Healthy Meals",
+                    description: "Delicious and healthy meals delivered to your door!",
+                    link: "https://example.com/food",
+                    bgClass: "ad-food"
+                },
+                {
+                    title: "Join Our Gym",
+                    description: "First month free when you sign up today!",
+                    link: "https://example.com/fitness",
+                    bgClass: "ad-fitness"
+                },
+                {
+                    title: "Dream Vacation",
+                    description: "Book your dream vacation with 20% discount!",
+                    link: "https://example.com/travel",
+                    bgClass: "ad-travel"
+                }
+            ];
+
+            return {
+                id: `ad-${index}`,
+                type: 'ad',
+                ...adTypes[index % 5]
+            };
+        }
+
+        // Start ad timer
+        function startAdTimer(index) {
+            if (adTimers[index]) {
+                clearInterval(adTimers[index].interval);
+            }
+
+            let timeLeft = 5;
+            const timerElement = document.getElementById(`adTimer${index}`);
+            
+            if (timerElement) {
+                timerElement.textContent = `${timeLeft}s`;
+                
+                adTimers[index] = {
+                    interval: setInterval(() => {
+                        timeLeft--;
+                        timerElement.textContent = `${timeLeft}s`;
+                        
+                        if (timeLeft <= 0) {
+                            clearInterval(adTimers[index].interval);
+                            autoScrollToNext();
+                        }
+                    }, 1000)
+                };
+            }
+        }
+
+        // Stop ad timer
+        function stopAdTimer(index) {
+            if (adTimers[index]) {
+                clearInterval(adTimers[index].interval);
+                delete adTimers[index];
+            }
+        }
+
+        // Auto scroll to next video
+        function autoScrollToNext() {
+            const container = document.getElementById('videoContainer');
+            const nextVideoTop = (currentVideoIndex + 1) * container.clientHeight;
+            container.scrollTo({
+                top: nextVideoTop,
+                behavior: 'smooth'
+            });
+        }
+
+        // Create video element
+        function createVideoElement(item, index) {
+            const videoItem = document.createElement('div');
+            videoItem.className = 'video-item';
+            videoItem.dataset.index = index;
+
+            if (item.type === 'ad') {
+                videoItem.innerHTML = `
+                    <a href="${item.link}" class="ad-container ${item.bgClass}">
+                        <div class="ad-timer" id="adTimer${index}">5s</div>
+                        <div class="ad-content">
+                            <h3 class="ad-title">${item.title}</h3>
+                            <p class="ad-description">${item.description}</p>
+                            <span class="ad-sponsored">Sponsored</span>
+                        </div>
+                    </a>
+                `;
+            } else {
+                videoItem.innerHTML = `
+                    <video class="video-element" 
+                           src="${item.videoUrl}" 
+                           loop="false" 
+                           muted="${isMuted[index] || false}"
+                           playsinline 
+                           webkit-playsinline
+                           preload="metadata"
+                           onclick="togglePlayPause(${index})"
+                           onloadeddata="handleVideoLoaded(${index})"
+                           oncanplay="handleVideoCanPlay(${index})">
+                    </video>
+                    
+                    <div class="video-overlay"></div>
+                    
+                    <div class="play-pause-overlay">
+                        <div class="play-pause-button" id="playPause${index}">
+                            <i data-lucide="pause" style="width: 48px; height: 48px; color: white; fill: currentColor;"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="loading-indicator" id="loading${index}">
+                        <div class="loading-spinner"></div>
+                    </div>
+                    
+                    <button class="mute-button" onclick="toggleMute(${index})">
+                        <i data-lucide="${isMuted[index] ? 'volume-x' : 'volume-2'}" style="width: 24px; height: 24px;"></i>
+                    </button>
+                    
+                    <div class="actions-panel">
+                        <div class="user-avatar">
+                            <div class="avatar-image">
+                                <img src="https://i.pravatar.cc/64?img=${index + 10}" alt="${item.username}" class="avatar-img">
+                            </div>
+                            <div class="follow-button">+</div>
+                        </div>
+                        
+                        <button class="action-button ${item.isLiked ? 'liked' : ''}" onclick="handleLike(${index})">
+                            <i data-lucide="heart" style="width: 40px; height: 40px;" class="${item.isLiked ? 'fill-current' : ''}"></i>
+                            <span class="action-count">${item.likes.toLocaleString()}</span>
+                        </button>
+                        
+                        <button class="action-button" onclick="showComments(${index})">
+                            <i data-lucide="message-circle" style="width: 40px; height: 40px;"></i>
+                            <span class="action-count">${item.comments.length}</span>
+                        </button>
+                        
+                        <button class="action-button">
+                            <i data-lucide="share" style="width: 40px; height: 40px;"></i>
+                        </button>
+                        
+                        <button class="action-button ${item.isBookmarked ? 'bookmarked' : ''}" onclick="handleBookmark(${index})">
+                            <i data-lucide="bookmark" style="width: 40px; height: 40px;" class="${item.isBookmarked ? 'fill-current' : ''}"></i>
+                        </button>
+                        
+                        <button class="action-button">
+                            <i data-lucide="download" style="width: 40px; height: 40px;"></i>
+                        </button>
+                        
+                        <button class="action-button">
+                            <i data-lucide="more-horizontal" style="width: 40px; height: 40px;"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="bottom-content">
+                        <h3 class="username">@${item.username}</h3>
+                        <p class="caption">${item.caption}</p>
+                    </div>
+                `;
+            }
+
+            return videoItem;
+        }
+
+        // Handle video loaded
+        function handleVideoLoaded(index) {
+            const loadingElement = document.getElementById(`loading${index}`);
+            if (loadingElement) {
+                loadingElement.classList.add('hidden');
+            }
+            isLoaded[index] = true;
+        }
+
+        // Handle video can play
+        function handleVideoCanPlay(index) {
+            const video = document.querySelectorAll('.video-element')[index];
+            if (video && index === currentVideoIndex) {
+                video.play().catch(e => {
+                    console.log('Auto-play prevented:', e);
+                    isPlaying[index] = false;
+                });
+            }
+        }
+
+        // Load more videos
+        function loadMoreVideos() {
+            const startIndex = videos.length;
+            
+            for (let i = 0; i < 10; i++) {
+                const videoIndex = startIndex + i;
+                
+                if (videoIndex > 0 && videoIndex % 2 === 0) {
+                    videos.push(generateAdData(Math.floor(videoIndex / 2)));
+                }
+                
+                videos.push(generateVideoData(videoIndex));
+            }
+            
+            // Add new videos to DOM
+            const container = document.getElementById('videoContainer');
+            for (let i = startIndex; i < videos.length; i++) {
+                const videoElement = createVideoElement(videos[i], i);
+                container.appendChild(videoElement);
+                
+                isPlaying[i] = false;
+                isMuted[i] = false;
+                isLoaded[i] = false;
+            }
+            
+            // Initialize Lucide icons for new elements
+            lucide.createIcons();
+        }
+
+        // Handle scroll
+        function handleScroll() {
+            isScrolling = true;
+            lastScrollTime = Date.now();
+            
+            // Stop all ad timers when scrolling
+            Object.keys(adTimers).forEach(index => {
+                stopAdTimer(parseInt(index));
+            });
+            
+            const container = document.getElementById('videoContainer');
+            const scrollTop = container.scrollTop;
+            const containerHeight = container.clientHeight;
+            const scrollHeight = container.scrollHeight;
+            
+            if (scrollHeight - scrollTop - containerHeight < 1000) {
+                loadMoreVideos();
+            }
+            
+            const videoHeight = containerHeight;
+            const newIndex = Math.round(scrollTop / videoHeight);
+            
+            if (newIndex !== currentVideoIndex && newIndex < videos.length) {
+                currentVideoIndex = newIndex;
+                
+                // Pause all videos except current
+                const allVideos = document.querySelectorAll('.video-element');
+                allVideos.forEach((video, idx) => {
+                    if (idx === currentVideoIndex && videos[idx].type === 'video') {
+                        video.play().catch(e => {
+                            console.log('Auto-play prevented:', e);
+                            isPlaying[idx] = false;
+                        });
+                        isPlaying[idx] = true;
+                    } else {
+                        video.pause();
+                        isPlaying[idx] = false;
+                    }
+                });
+                
+                // Start ad timer if current item is an ad
+                if (videos[currentVideoIndex] && videos[currentVideoIndex].type === 'ad') {
+                    setTimeout(() => {
+                        if (!isScrolling) {
+                            startAdTimer(currentVideoIndex);
+                        }
+                    }, 100);
+                }
+            }
+            
+            // Reset scrolling flag after a delay
+            setTimeout(() => {
+                isScrolling = false;
+                // Start ad timer if we're on an ad and not scrolling
+                if (videos[currentVideoIndex] && videos[currentVideoIndex].type === 'ad') {
+                    startAdTimer(currentVideoIndex);
+                }
+            }, 150);
+        }
+
+        // Toggle play/pause
+        function togglePlayPause(index) {
+            const video = document.querySelectorAll('.video-element')[index];
+            const playPauseButton = document.getElementById(`playPause${index}`);
+            
+            if (video.paused) {
+                video.play().catch(e => {
+                    console.log('Play prevented:', e);
+                });
+                isPlaying[index] = true;
+                playPauseButton.classList.remove('show');
+            } else {
+                video.pause();
+                isPlaying[index] = false;
+                playPauseButton.classList.add('show');
+                setTimeout(() => {
+                    playPauseButton.classList.remove('show');
+                }, 1000);
+            }
+        }
+
+        // Toggle mute
+        function toggleMute(index) {
+            const video = document.querySelectorAll('.video-element')[index];
+            const muteButton = document.querySelector(`[data-index="${index}"] .mute-button i`);
+            
+            video.muted = !video.muted;
+            isMuted[index] = video.muted;
+            
+            muteButton.setAttribute('data-lucide', video.muted ? 'volume-x' : 'volume-2');
+            lucide.createIcons();
+        }
+
+        // Handle like
+        function handleLike(index) {
+            if (videos[index].type === 'video') {
+                videos[index].isLiked = !videos[index].isLiked;
+                videos[index].likes += videos[index].isLiked ? 1 : -1;
+                
+                const likeButton = document.querySelector(`[data-index="${index}"] .action-button`);
+                const likeIcon = likeButton.querySelector('i');
+                const likeCount = likeButton.querySelector('.action-count');
+                
+                if (videos[index].isLiked) {
+                    likeButton.classList.add('liked');
+                    likeIcon.classList.add('fill-current');
+                } else {
+                    likeButton.classList.remove('liked');
+                    likeIcon.classList.remove('fill-current');
+                }
+                
+                likeCount.textContent = videos[index].likes.toLocaleString();
+            }
+        }
+
+        // Handle bookmark
+        function handleBookmark(index) {
+            if (videos[index].type === 'video') {
+                videos[index].isBookmarked = !videos[index].isBookmarked;
+                
+                const bookmarkButtons = document.querySelectorAll(`[data-index="${index}"] .action-button`);
+                const bookmarkButton = bookmarkButtons[3]; // 4th button is bookmark
+                const bookmarkIcon = bookmarkButton.querySelector('i');
+                
+                if (videos[index].isBookmarked) {
+                    bookmarkButton.classList.add('bookmarked');
+                    bookmarkIcon.classList.add('fill-current');
+                } else {
+                    bookmarkButton.classList.remove('bookmarked');
+                    bookmarkIcon.classList.remove('fill-current');
+                }
+            }
+        }
+
+        // Show comments
+        function showComments(index) {
+            const modal = document.getElementById('commentsModal');
+            const commentsList = document.getElementById('commentsList');
+            
+            if (videos[index].type === 'video') {
+                commentsList.innerHTML = '';
+                
+                videos[index].comments.forEach((comment, commentIndex) => {
+                    const commentElement = document.createElement('div');
+                    commentElement.className = 'comment-item';
+                    commentElement.innerHTML = `
+                        <div class="comment-avatar">
+                            <img src="https://i.pravatar.cc/40?img=${commentIndex + 1}" alt="${comment.username}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="comment-content">
+                            <div class="comment-header">
+                                <a href="https://example.com" class="comment-username">${comment.username}</a>
+                                <span class="comment-time">${comment.timeAgo}</span>
+                            </div>
+                            <p class="comment-text">${comment.text}</p>
+                            <div class="comment-actions">
+                                <button class="comment-like-button ${comment.isLiked ? 'liked' : ''}" onclick="handleCommentLike(${index}, ${commentIndex})">
+                                    <i data-lucide="heart" style="width: 12px; height: 12px; margin-right: 4px;" class="${comment.isLiked ? 'fill-current' : ''}"></i>
+                                    ${comment.likes}
+                                </button>
+                                <a href="https://example.com" class="comment-reply-button">Reply</a>
+                            </div>
+                        </div>
+                    `;
+                    commentsList.appendChild(commentElement);
+                });
+                
+                modal.classList.add('show');
+                lucide.createIcons();
+            }
+        }
+
+        // Close comments
+        function closeComments() {
+            const modal = document.getElementById('commentsModal');
+            modal.classList.remove('show');
+        }
+
+        // Handle comment like
+        function handleCommentLike(videoIndex, commentIndex) {
+            const comment = videos[videoIndex].comments[commentIndex];
+            comment.isLiked = !comment.isLiked;
+            comment.likes += comment.isLiked ? 1 : -1;
+            
+            const commentButtons = document.querySelectorAll('.comment-like-button');
+            const button = commentButtons[commentIndex];
+            const icon = button.querySelector('i');
+            
+            if (comment.isLiked) {
+                button.classList.add('liked');
+                icon.classList.add('fill-current');
+            } else {
+                button.classList.remove('liked');
+                icon.classList.remove('fill-current');
+            }
+            
+            button.innerHTML = `
+                <i data-lucide="heart" style="width: 12px; height: 12px; margin-right: 4px;" class="${comment.isLiked ? 'fill-current' : ''}"></i>
+                ${comment.likes}
+            `;
+            lucide.createIcons();
+        }
+
+        // Update inbox counter
+        function updateInboxCounter() {
+            setInterval(() => {
+                inboxCount += 2;
+                const inboxBadge = document.getElementById('inboxBadge');
+                if (inboxBadge) {
+                    inboxBadge.textContent = inboxCount;
+                }
+            }, 2000); // Every 2 seconds
+        }
+
+        // Initialize app
+        function init() {
+            loadMoreVideos();
+            
+            const container = document.getElementById('videoContainer');
+            container.addEventListener('scroll', handleScroll);
+            
+            // Close comments when clicking outside
+            document.getElementById('commentsModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeComments();
+                }
+            });
+            
+            // Start inbox counter
+            updateInboxCounter();
+            
+            // Initialize Lucide icons
+            lucide.createIcons();
+            
+            // Try to play first video after a delay
+            setTimeout(() => {
+                if (videos.length > 0 && videos[0].type === 'video') {
+                    const firstVideo = document.querySelector('.video-element');
+                    if (firstVideo) {
+                        firstVideo.play().catch(e => {
+                            console.log('Auto-play prevented:', e);
+                        });
+                    }
+                }
+            }, 1000);
+        }
+
+        // Start the app when page loads
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
